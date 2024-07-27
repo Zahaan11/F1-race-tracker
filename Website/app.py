@@ -14,7 +14,8 @@ cluster = pymongo.MongoClient(uri,tlsCAFile=certifi.where())
 db = cluster["F1data"]
 response = urlopen('https://api.openf1.org/v1/meetings?meeting_key=latest')
 meeting=json.loads(response.read().decode('utf-8'))[0]
-current = db[meeting["meeting_official_name"]]
+# current = db[meeting["meeting_official_name"]]
+current = db["FORMULA 1 QATAR AIRWAYS AUSTRIAN GRAND PRIX 2024"]
 app=Flask(__name__)
 app.secret_key="hgsyafdysg"
 import fastf1
@@ -38,14 +39,25 @@ def background_thread():
     while True:
         compiled={}
         standingsdict=current.find_one({"Type":"standings"})
-        standings=standingsdict['Standings']
+        standingsint=standingsdict['Standings']
+        standings=[]
+        for i in standingsint:
+            standings.append(str(i))
         compiled['standings']=",".join(standings)
         for n in range(len(standings)):
-            a=current.find_one({'Type':'driver','Number':n})
-            if(a!=None):   
-                compiled[str(n)]=",".join(a['Info'].values())
-            else:
-                compiled[str(n)]='Bug'
+            a=current.find_one({'Type':'driver','Number':standingsint[n]})
+            b=a['Info'].values()
+            c=[]
+            for d in b:
+                if isinstance(d,int):
+                    c.append(str(d))
+                else:
+                    c.append(d)
+            compiled["P"+str(n+1)]=",".join(c)
+        a=len(standings)
+        while a < 20:
+            compiled["P"+str(a+1)]=",".join([404,"NA"])
+            a=a+1
         socketio.emit('my_response', compiled)
 @app.route('/')
 def index():

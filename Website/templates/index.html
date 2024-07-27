@@ -25,21 +25,56 @@
             // section of the page.
             socket.on('my_response', function(msg, cb) {
                 // $('#log').append('<br>' + $('<div/>').text(msg.standings).html());
-                document.getElementById('price').innerHTML = msg.standings;
+                // document.getElementById('price').innerHTML = msg.standings;
 
                 var standings = msg.standings.split(',');
-                let d1 = msg.1.split(',');
-                var data = 
+                let d1 = msg.P1.split(',');
+                let d2 = msg.P2.split(',');
+                let d3 = msg.P3.split(',');
+                let d4 = msg.P4.split(',');
+                let d5 = msg.P5.split(',');
+                let d6 = msg.P6.split(',');
+                let d7 = msg.P7.split(',');
+                let d8 = msg.P8.split(',');
+                let d9 = msg.P9.split(',');
+                let d10 = msg.P10.split(',');
+                let d11 = msg.P11.split(',');
+                let d12 = msg.P12.split(',');
+                let d13 = msg.P13.split(',');
+                let d14 = msg.P14.split(',');
+                let d15 = msg.P15.split(',');
+                let d16 = msg.P16.split(',');
+                let d17 = msg.P17.split(',');
+                let d18 = msg.P18.split(',');
+                let d19 = msg.P19.split(',');
+                let d20 = msg.P20.split(',');
                 var length = standings.length;
-                var n = 0;
-                for (var i=0;i<length;i++){
-                    let l = i.toString();
-                    n = standings[l];
-                    let info = msg.n
-                    
-                    l.concat()
+                let cars = [
+                    d1,
+                    d2,
+                    d3,
+                    d4,
+                    d5,
+                    d6,
+                    d7,
+                    d8,
+                    d9,
+                    d10,
+                    d11,
+                    d12,
+                    d13,
+                    d14,
+                    d15,
+                    d16,
+                    d17,
+                    d18,
+                    d19,
+                    d20,
+                ];
+                for(let a = 0; a < 20; a++){
+                    b = "name_".concat(a.toString());
+                    document.getElementById(b).innerHTML = cars;
                 }
-
                 if (cb)
                     cb();
             });
@@ -58,10 +93,10 @@
                         <p id="Name_{{ i }}" class=""></p>
                     </div>
                     <!-- <div class="card-body">
-                        <h5 class="card-title text-center">{{ contact["name"] }}</h5>
-                        <p class="card-text text-center">{{ contact["number"] }}</p>
+                        <h5 class="card-title text-center"></h5>
+                        <p class="card-text text-center"></p>
                     </div>
-                    <div class="card-footer bg-transparent">Posted at: {{ moment(contact["timestamp"]).fromNow(refresh=True) }} </div> -->
+                    <div class="card-footer bg-transparent"> </div> -->
                 </div>
             </div>
             {% endfor %}
