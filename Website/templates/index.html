@@ -73,7 +73,7 @@
                 ];
                 for(let a = 0; a < 20; a++){
                     b = "name_".concat(a.toString());
-                    document.getElementById(b).innerHTML = cars;
+                    document.getElementById(b).innerHTML = cars[a];
                 }
                 if (cb)
                     cb();
@@ -89,8 +89,8 @@
             <div class="col-5">
                 <div class="card text-bg-dark mb-3">
                     <div class="card-header">
-                        <h4>{{ i }}</h4>
-                        <p id="Name_{{ i }}" class=""></p>
+                        <!-- <h4>{{ i }}</h4> -->
+                        <p id="name_{{ i }}" class=""></p>
                     </div>
                     <!-- <div class="card-body">
                         <h5 class="card-title text-center"></h5>

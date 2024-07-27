@@ -37,28 +37,37 @@ def background_thread():
     global current
     """Example of how to send server generated events to clients."""
     while True:
-        compiled={}
-        standingsdict=current.find_one({"Type":"standings"})
-        standingsint=standingsdict['Standings']
-        standings=[]
-        for i in standingsint:
-            standings.append(str(i))
-        compiled['standings']=",".join(standings)
-        for n in range(len(standings)):
-            a=current.find_one({'Type':'driver','Number':standingsint[n]})
-            b=a['Info'].values()
-            c=[]
-            for d in b:
-                if isinstance(d,int):
-                    c.append(str(d))
-                else:
-                    c.append(d)
-            compiled["P"+str(n+1)]=",".join(c)
-        a=len(standings)
-        while a < 20:
-            compiled["P"+str(a+1)]=",".join([404,"NA"])
-            a=a+1
-        socketio.emit('my_response', compiled)
+        try:
+            compiled={}
+            standingsdict=current.find_one({"Type":"standings"})
+            standingsint=standingsdict['Standings']
+            standings=[]
+            for i in standingsint:
+                standings.append(str(i))
+            compiled['standings']=",".join(standings)
+            for n in range(len(standings)):
+                #print(standingsint)
+                #print(n)
+                a=current.find_one({'Type':'driver','Number':standingsint[n]})
+                try:
+                    b=a['Info'].values()
+                    c=[]
+                    for d in b:
+                        if isinstance(d,int):
+                            c.append(str(d))
+                        else:
+                            c.append(d)
+                    compiled["P"+str(n+1)]=",".join(c)
+                except:
+                    pass
+            a=len(standings)
+            while a < 20:
+                compiled["P"+str(a+1)]=",".join([404,"NA"])
+                a=a+1
+            print(compiled)
+            socketio.emit('my_response', compiled)
+        except:
+            pass
 @app.route('/')
 def index():
     global current
