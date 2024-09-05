@@ -20,8 +20,7 @@ for n in range(1,current+1):
     response = urlopen('https://api.openf1.org/v1/session?session_key=' + str(n))
     overall=json.loads(response.read().decode('utf-8'))[0]
     response = urlopen('https://api.openf1.org/v1/stints?session_key=' + str(n))
-    stints=json.loads(response.read().decode('utf-8'))
-    
+    stints=json.loads(response.read().decode('utf-8')) 
 
 
 

@@ -26,9 +26,11 @@
             socket.on('my_response', function(msg, cb) {
                 // $('#log').append('<br>' + $('<div/>').text(msg.standings).html());
                 // document.getElementById('price').innerHTML = msg.standings;
+                
 
-                var standings = msg.standings.split(',');
+                //let standings = msg.standings.split(',');
                 let d1 = msg.P1.split(',');
+                document.getElementById("name_1").innerHTML = d1;
                 let d2 = msg.P2.split(',');
                 let d3 = msg.P3.split(',');
                 let d4 = msg.P4.split(',');

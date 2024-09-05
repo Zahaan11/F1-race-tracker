@@ -40,6 +40,7 @@ def background_thread():
         try:
             compiled={}
             standingsdict=current.find_one({"Type":"standings"})
+            print("abc",standingsdict)
             standingsint=standingsdict['Standings']
             standings=[]
             for i in standingsint:
@@ -64,10 +65,10 @@ def background_thread():
             while a < 20:
                 compiled["P"+str(a+1)]=",".join([404,"NA"])
                 a=a+1
-            print(compiled)
             socketio.emit('my_response', compiled)
-        except:
-            pass
+            print("Success")
+        except Exception as e:
+            print("hello", e)
 @app.route('/')
 def index():
     global current
@@ -85,4 +86,4 @@ def connect():
     emit('my_response', {'data': 'Connected', 'count': 0})
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
